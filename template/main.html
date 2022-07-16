@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo</title>
+  </head>
+  <body>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/styles.css' %}">
+
+
+<div class="container">
+  {% block content %}
+  {% if messages %}
+  <ul>
+    {% for message in messages %}
+    <li>{{message}}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  {% endblock content %}
+  {% include "footer.html" %}
+</div>
+
+  </body>
+</html>

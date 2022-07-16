@@ -1,0 +1,17 @@
+{% extends "main.html" %}
+
+{% block content %}
+<div class="body-card">
+  <div class="login-container">
+    <form class="" action="" method="POST">
+      {% csrf_token %}
+      <label>Username: </label>
+      <input type="text" name="username" placeholder="Enter username">
+      <label>Password: </label>
+      <input type="password" name="password" placeholder="Enter password">
+      <input type="submit" name="submit" value="Login" class="button">
+    </form>
+  </div>
+  <p>You don't have an account yet, Register <a href="{% url 'register' %}">here</a></p>
+</div>
+{% endblock content %}

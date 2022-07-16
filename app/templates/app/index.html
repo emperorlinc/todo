@@ -1,0 +1,56 @@
+{% extends "main.html" %}
+
+{% block content %}
+<div class="header-design">
+  <div class="">
+    <h1 style="font-family: cursive">Hello {{request.user|capfirst}}</h1>
+    <h3 style="margin:0">You have <i>{{count}}</i> incomplete task{{count|pluralize:"s"}}</h3>
+  </div>
+  {% if request.user.is_authenticated %}
+  <p><i><a href="{% url 'logout' %}">Logout</a></i></p>
+  {% elif page == login %}
+  <p>&#8623;</p>
+  {% else %}
+  <p><i><a href="{% url 'login' %}">Login</a></i></p>
+  {% endif %}
+</div>
+<div class="body-card">
+  <div class="create-search">
+    <form class="" action="" method="GET" style="margin-top: 20px; display: flex;">
+      <input type="text" name="q" value="{{q}}">
+      <input class="button" type="submit" name="submit" value="Search">
+    </form>
+    <a id="add-link" href="{% url 'create' %}">&#x2b;</a>
+  </div>
+<!-- <div class="list-title-container">
+  <a href="#"><span class="list-title">List</span></a>
+  <a href="#"><span class="complete-list-title">completed</span></a>
+</div>
+<hr> -->
+  {% for todo in todos %}
+  <div class="list-container">
+    {% if todo.complete %}
+    <div class="task-title">
+      <div class="task-complete"></div>
+      <s><i><a href="{% url 'edit' todo.id %}">{{todo.title|title}}</a></i></s>
+    </div>
+    <a class="delete-link" href="{% url 'delete' todo.id %}">&#215;</a>
+    {% else %}
+    <div class="task-title">
+      <div class="task-incomplete"></div>
+      <a href="{% url 'edit' todo.id %}">{{todo.title|title}}</a>
+    </div>
+    <a class="delete-link" href="{% url 'delete' todo.id %}">&#215;</a>
+    {% endif %}
+  </div>
+  <hr>
+  {% empty %}
+  <h3>No items in list</h3>
+  {% endfor %}
+</div>
+{% for page in paginator.page_range %}
+<div class="page-control">
+  <span><a href="?page={{page}}">{{page}}</a></span>
+</div>
+{% endfor %}
+{% endblock content %}
